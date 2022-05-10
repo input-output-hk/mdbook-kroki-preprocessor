@@ -11,13 +11,10 @@
     buildInputs = [ openssl ];
 
     cargoLock = {
-      lockFile = ./Cargo.lock;
+      lockFile = self + "/Cargo.lock";
     };
 
-    src = std.incl self [
-      (self + /Cargo.lock)
-      (self + /src)
-    ];
+    src = self;
   };
 in {
   preprocessor = buildPreprocessor;
