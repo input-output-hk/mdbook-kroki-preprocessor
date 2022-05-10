@@ -3,26 +3,20 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    utils.url = "github:numtide/flake-utils";
+    std.url = "github:divnix/std";
   };
 
-  outputs = { self, nixpkgs, utils }:
-    utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        defaultPackage = with pkgs; rustPlatform.buildRustPackage {
-          pname = "mdbook-kroki-preprocessor";
-          version = "0.1.0";
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ openssl ];
-
-          cargoLock = {
-            lockFile = ./Cargo.lock;
-          };
-
-          src = ./.;
-      };
+  outputs = inputs:
+    (inputs.std.growOn {
+      inherit inputs;
+      cellsFrom = ./cells;
+      organelles = [
+        (inputs.std.devshells "devshell")
+        (inputs.std.installables "apps")
+      ];
+    }
+    {
+      devshell = inputs.std.harvest inputs.self [ "preprocessor" "devshell" "default" ];
+      defaultPackage = inputs.std.harvest inputs.self [ "preprocessor" "apps" "preprocessor" ];
     });
 }
