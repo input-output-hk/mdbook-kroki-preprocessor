@@ -11,12 +11,10 @@
       inherit inputs;
       cellsFrom = ./cells;
       organelles = [
-        (inputs.std.devshells "devshell")
         (inputs.std.installables "apps")
       ];
     }
     {
-      devshell = inputs.std.harvest inputs.self [ "preprocessor" "devshell" "default" ];
       defaultPackage = inputs.std.harvest inputs.self [ "preprocessor" "apps" "preprocessor" ];
     });
 }
