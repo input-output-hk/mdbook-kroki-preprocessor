@@ -15,6 +15,10 @@
     };
 
     src = self;
+
+    meta = {
+      description = "A mdbook preprocessor to render kroki-supported diagrams on the fly";
+    };
   };
 in {
   preprocessor = buildPreprocessor;
