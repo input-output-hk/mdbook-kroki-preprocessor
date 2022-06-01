@@ -15,6 +15,11 @@
     };
 
     src = self;
+
+    meta = {
+      mainProgram = "mdbook-kroki-preprocessor";
+      description = "Render Kroki diagrams from files or code blocks in mdbook";
+    };
   };
 in {
   preprocessor = buildPreprocessor;
