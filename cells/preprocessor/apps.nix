@@ -18,6 +18,7 @@
 
     meta = {
       description = "A mdbook preprocessor to render kroki-supported diagrams on the fly";
+      mainProgram = "mdbook-kroki-preprocessor";
     };
   };
 in {
