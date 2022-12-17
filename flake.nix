@@ -6,17 +6,16 @@
     std.url = "github:divnix/std";
   };
 
-  outputs = inputs:
-    (inputs.std.growOn {
+  outputs = inputs: (inputs.std.growOn {
       inherit inputs;
       cellsFrom = ./cells;
-      organelles = [
+      cellBlocks = [
         (inputs.std.devshells "devshell")
         (inputs.std.installables "apps")
       ];
     }
     {
-      devShell = inputs.std.harvest inputs.self [ "preprocessor" "devshell" "default" ];
-      defaultPackage = inputs.std.harvest inputs.self [ "preprocessor" "apps" "preprocessor" ];
+      devShell = inputs.std.harvest inputs.self ["preprocessor" "devshell" "default"];
+      defaultPackage = inputs.std.harvest inputs.self ["preprocessor" "apps" "preprocessor"];
     });
 }
